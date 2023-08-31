@@ -1,34 +1,58 @@
 package hello.study;
 
 import java.time.Duration;
+import java.util.Collections;
+import java.util.List;
 
 public class Movie {
     private String title;
     private Duration runningTime;
     private Money fee;
-    private DiscountPolicy discountPolicy;
+    private List<DiscountCondition> discountConditions;
 
-    public Movie(String title, Duration runningTime, Money fee, DiscountPolicy discountPolicy) {
-        this.title = title;
-        this.runningTime = runningTime;
-        this.fee = fee;
-        this.discountPolicy = discountPolicy;
+    private MovieType movieType;
+    private Money discountAmount;
+    private double discountPercent;
+
+    public Money getDiscountAmount() {
+        return discountAmount;
     }
 
     public Money getFee() {
         return fee;
     }
 
-
-    public Money calculateMovieFee(Screening screening) {
-
-        if (discountPolicy == null) {
-            return fee;
-        }
-        return fee.minus(discountPolicy.calculateDiscountAmount(screening));
+    public void setFee(Money fee) {
+        this.fee = fee;
     }
 
-    public void changeDiscountPolicy(DiscountPolicy discountPolicy) {
-        this.discountPolicy = discountPolicy;
+    public List<DiscountCondition> getDiscountConditions() {
+        return Collections.unmodifiableList(discountConditions);
+    }
+
+    public void setDiscountConditions(List<DiscountCondition> discountConditions) {
+        this.discountConditions = discountConditions;
+    }
+
+    public MovieType getMovieType() {
+        return movieType;
+    }
+
+    public void setMovieType(MovieType movieType) {
+        this.movieType = movieType;
+    }
+
+
+
+    public void setDiscountAmount(Money discountAmount) {
+        this.discountAmount = discountAmount;
+    }
+
+    public double getDiscountPercent() {
+        return discountPercent;
+    }
+
+    public void setDiscountPercent(double discountPercent) {
+        this.discountPercent = discountPercent;
     }
 }
