@@ -1,15 +1,15 @@
 package hello.study;
 
-public class PercentDiscountPolicy extends DefaultDiscountPolicy {
+public class PercentDiscountPolicy {
     private double percent;
 
-    public PercentDiscountPolicy(double percent, DiscountCondition... conditions) {
-        super(conditions);
-        this.percent = percent;
-    }
+//    public PercentDiscountPolicy(double percent, DiscountCondition... conditions) {
+//        super(conditions);
+//        this.percent = percent;
+//    }
 
-    @Override
-    protected Money getDiscountAmount(Screening screening) {
-        return screening.getMovieFee().times(percent);
-    }
+//    @Override
+//    protected Money getDiscountAmount(Screening screening) {
+//        return screening.getMovieFee().times(percent);
+//    }
 }

@@ -11,15 +11,15 @@ public abstract class DefaultDiscountPolicy implements DiscountPolicy{
         this.conditions = Arrays.asList(conditions);
     }
 
-    public Money calculateDiscountAmount(Screening screening) {
-        for (DiscountCondition each : conditions) {
-            if (each.isSatisfiedBy(screening)) {
-                return getDiscountAmount(screening);
-            }
-        }
-
-        return Money.ZERO;
-    }
+//    public Money calculateDiscountAmount(Screening screening) {
+//        for (DiscountCondition each : conditions) {
+//            if (each.isSatisfiedBy(screening)) {
+//                return getDiscountAmount(screening);
+//            }
+//        }
+//
+//        return Money.ZERO;
+//    }
 
     abstract protected Money getDiscountAmount(Screening screening);
 }

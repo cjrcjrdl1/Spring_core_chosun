@@ -1,15 +1,15 @@
 package hello.study;
 
-public class AmountDiscountPolicy extends DefaultDiscountPolicy {
+public class AmountDiscountPolicy  {
     private Money discountAmount;
 
-    public AmountDiscountPolicy(Money discountAmount, DiscountCondition... conditions) {
-        super(conditions);
-        this.discountAmount = discountAmount;
-    }
-
-    @Override
-    protected Money getDiscountAmount(Screening screening) {
-        return discountAmount;
-    }
+//    public AmountDiscountPolicy(Money discountAmount, DiscountCondition... conditions) {
+//        super(conditions);
+//        this.discountAmount = discountAmount;
+//    }
+//
+//    @Override
+//    protected Money getDiscountAmount(Screening screening) {
+//        return discountAmount;
+//    }
 }

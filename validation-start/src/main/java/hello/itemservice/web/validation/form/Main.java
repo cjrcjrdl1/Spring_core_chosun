@@ -3,49 +3,45 @@ package hello.itemservice.web.validation.form;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
 
 public class Main {
-    static int[] seq;
-    static Integer[] dp;
+    static Long[][] dp;
+    static int n;
+    final static long mod = 1000000000;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int n = Integer.parseInt(br.readLine());
-        seq = new int[n];
-        dp = new Integer[n];
+        n = Integer.parseInt(br.readLine());
+        dp = new Long[n + 1][10];
 
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < n; i++) {
-            seq[i] = Integer.parseInt(st.nextToken());
+        for (int i = 0; i < 10; i++) {
+            dp[1][i] = 1L;
         }
 
-        for (int i = 0; i < n; i++) {
-            LIS(i);
+        long result = 0;
+
+        for (int i = 1; i <= 9; i++) {
+            result += recur(n, i);
         }
-
-        int max = dp[0];
-
-        for (int i = 1; i < n; i++) {
-            max = Math.max(max, dp[i]);
-        }
-
-        System.out.println(max);
+        System.out.println(result % mod);
     }
 
-    static int LIS(int n) {
-        if (dp[n] == null) {
-            dp[n] = 1;
+    static long recur(int digit, int val) {//digit는 자릿수, val은 자릿값
+        if (digit == 1) {
+            return dp[digit][val];
+        }
 
-            for (int i = n - 1; i >= 0; i--) {
-                if (seq[i] < seq[n]) {
-                    dp[n] = Math.max(dp[n], LIS(i) + 1);
-                }
+        if (dp[digit][val] == null) {
+            if (val == 0) {
+                dp[digit][val] = recur(digit - 1, 1); //val이 0인 경우 이전자리는 1밖에 못옴
+            } else if (val == 9) {
+                dp[digit][val] = recur(digit - 1, 8); //val이 9인 경우 이전자리는 8밖에 없음
+            } else {
+                dp[digit][val] = recur(digit - 1, val - 1) + recur(digit - 1, val + 1);
             }
         }
-        return dp[n];
+        return dp[digit][val] % mod;
     }
-
 
 
 }
