@@ -6,14 +6,13 @@ import java.io.InputStreamReader;
 
 public class Main {
 
-    static Integer[] dp = new Integer[12];
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
+        int dp[] = new int[12];
+
         int t = Integer.parseInt(br.readLine());
 
-        dp[0] = 0;
         dp[1] = 1;
         dp[2] = 2;
         dp[3] = 4;
@@ -22,18 +21,15 @@ public class Main {
 
         for (int i = 0; i < t; i++) {
             int n = Integer.parseInt(br.readLine());
-            sb.append(logic(n)).append('\n');
+
+            for (int j = 4; j <= n; j++) {
+                dp[j] = dp[j - 3] + dp[j - 2] + dp[j - 1];
+            }
+            sb.append(dp[n]).append('\n');
         }
 
         System.out.println(sb);
     }
 
-    public static int logic(int n) {
-        if (dp[n] == null) {
-            dp[n] = logic(n - 3) + logic(n - 2) + logic(n - 1);
-        }
-
-        return dp[n];
-    }
 
 }
