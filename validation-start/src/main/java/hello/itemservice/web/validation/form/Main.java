@@ -5,24 +5,20 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
-    static Long[] dp = new Long[91];
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        dp[0] = 0L;
-        dp[1] = 1L;
-
+        long[] dp = new long[91];
+        dp[0] = 0;
+        dp[1] = 1;
         int n = Integer.parseInt(br.readLine());
 
-        System.out.println(logic(n));
-
-    }
-
-    static long logic(int n) {
-        if (dp[n] == null) {
-            dp[n] = logic(n - 2) + logic(n - 1);
+        for (int i = 2; i <= n; i++) {
+            dp[i] = dp[i - 2] + dp[i - 1];
         }
-        return dp[n];
+
+        System.out.println(dp[n]);
+
     }
 
 }
