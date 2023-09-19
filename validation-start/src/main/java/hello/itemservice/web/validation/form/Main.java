@@ -6,12 +6,14 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
+    static int[] seq;
+    static Integer[] dp;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
 
-        int[] seq = new int[n];
-        int[] dp = new int[n];
+        seq = new int[n];
+        dp = new Integer[n];
 
         StringTokenizer st = new StringTokenizer(br.readLine());
 
@@ -19,21 +21,27 @@ public class Main {
             seq[i] = Integer.parseInt(st.nextToken());
         }
 
+        dp[0] = seq[0];
+
         for (int i = 0; i < n; i++) {
-            dp[i] = seq[i];
-            for (int j = 0; j < i; j++) {
-                if (seq[j] < seq[i]) {
-                    dp[i] = Math.max(dp[i], dp[j] + seq[i]);
-                }
-            }
+            LIS(i);
         }
 
-        int result = 0;
-        for (int i = 0; i < n; i++) {
-            result = Math.max(result, dp[i]);
+        int max = dp[0];
+
+        for (int i = 1; i < n; i++) {
+            max = Math.max(max, dp[i]);
         }
 
-        System.out.println(result);
+        System.out.println(max);
+    }
+
+    static int LIS(int n) {
+        if (dp[n] == null) {
+            dp[n] = Math.max(LIS(n - 1) + seq[n], seq[n]);
+        }
+
+        return dp[n];
     }
 
 }
