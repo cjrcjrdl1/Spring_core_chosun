@@ -3,32 +3,48 @@ package hello.itemservice.web.validation.form;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
 
 public class Main {
+    static Long[][] dp;
+    static int n;
+    static long mod = 1000000000;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
 
-        int[] seq = new int[n];
-        int[] dp = new int[n];
+        dp = new Long[n + 1][10];
 
-        StringTokenizer st = new StringTokenizer(br.readLine());
-
-        for (int i = 0; i < n; i++) {
-            seq[i] = Integer.parseInt(st.nextToken());
+        for (int i = 0; i < 10; i++) {
+            dp[1][i] = 1L;
         }
 
-        dp[0] = seq[0];
-        int max = dp[0];
+        long result = 0;
 
-        for (int i = 1; i < n; i++) {
-            dp[i] = Math.max(dp[i - 1] + seq[i], seq[i]);
-            max = Math.max(max, dp[i]);
+        for (int i = 1; i <= 9; i++) {
+            result += recur(n, i);
         }
 
-        System.out.println(max);
+        System.out.println(result % mod);
 
+    }
+
+    static long recur(int digit, int val) {
+        if (digit == 1) {
+            return dp[digit][val];
+        }
+
+        if (dp[digit][val] == null) {
+            if (val == 0) {
+                dp[digit][val] = recur(digit - 1, 1);
+            } else if (val == 9) {
+                dp[digit][val] = recur(digit - 1, 8);
+            } else {
+                dp[digit][val] = recur(digit - 1, val - 1) + recur(digit - 1, val + 1);
+            }
+        }
+
+        return dp[digit][val] % mod;
     }
 
 
