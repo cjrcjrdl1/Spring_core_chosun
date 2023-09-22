@@ -5,28 +5,39 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
+    static int[][] dp;
+    static final int mod = 10007;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
 
-        int[][] dp = new int[n + 1][10];
+        dp = new int[1001][10];
+
+        int result = 0;
 
         for (int i = 0; i < 10; i++) {
-            dp[0][i] = 1;
+            result += logic(n, i);
+            result %= mod;
         }
 
-        for (int i = 1; i < n + 1; i++) {
-            for (int j = 0; j < 10; j++) {
-                for (int k = j; k < 10; k++) {
-                    dp[i][j] += dp[i - 1][k];
-                    dp[i][j] %= 10007;
-                }
-            }
-        }
-
-        System.out.println(dp[n][0] % 10007);
+        System.out.println(result);
     }
 
+    public static int logic(int n, int i) {
+        if (n == 1) {
+            return dp[n][i] = 1;
+        }
+
+        if (dp[n][i] > 0) {
+            return dp[n][i];
+        }
+
+        for (int k = 0; k <= i; k++) {
+            dp[n][i] += logic(n - 1, k);
+            dp[n][i] %= mod;
+        }
+        return dp[n][i];
+    }
 
 }
