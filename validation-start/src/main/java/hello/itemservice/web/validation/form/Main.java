@@ -14,12 +14,11 @@ public class Main {
         String n = st.nextToken();
         int b = Integer.parseInt(st.nextToken());
 
-        int tmp = 1;
         int sum = 0;
+        int tmp = 1;
 
         for (int i = n.length() - 1; i >= 0; i--) {
             char c = n.charAt(i);
-
             if ('A' <= c && c <= 'Z') {
                 sum += (c - 'A' + 10) * tmp;
             } else {
